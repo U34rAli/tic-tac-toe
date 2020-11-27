@@ -1,12 +1,13 @@
 # OSX
 
+
 clang++ -L./osx/lib/ -lSDL2 -I./osx/include/ main.cpp -framework OpenGL
 
 
 # Windows
 
-TBD
+cl /EHsc /Iwindows\include /c main.cpp
 
-Need to fetch:
+and then link with:
 
-https://www.libsdl.org/download-2.0.php
+link /SUBSYSTEM:CONSOLE /LIBPATH:windows\lib\x64 main.obj SDL2.lib SDL2main.lib /NODEFAULTLIB:libcmtd.lib opengl32.lib shell32.lib
