@@ -1,6 +1,6 @@
 /**
- * 
- * \author Benedict R. Gaster
+ * @file 
+ * @author Benedict R. Gaster
  */
 #pragma once
 
@@ -11,11 +11,13 @@
 namespace uwe {
     class Context {
     public:
-        /** \brief Create a context
-         * \param width an integer setting the window width
-         * \param height an integer setting the window height
+        /** @brief Create a context
+         * @param width an integer setting the window width
+         * @param height an integer setting the window height
          */
         Context(int width, int height);
+
+        /// Destory context
         ~Context();
 
         /// Output details of GPU backend and texture formats
