@@ -1,7 +1,6 @@
 # OSX
 
-
-clang++ -L./osx/lib/ -lSDL2 -I./osx/include/ main.cpp -framework OpenGL
+clang++ -std=c++17 -L./osx/lib/ -lSDL2 -I./osx/include/ -I./include src/context.cpp src/app.cpp main.cpp -framework OpenGL
 
 
 # Windows
