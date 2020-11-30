@@ -51,17 +51,10 @@ namespace uwe {
             update();
             
             draw();
-
-            // copy framebuffer pixels to GU texture for rendering
-            SDL_UpdateTexture(
-                context_.get_texture(),
-                NULL,
-                context_.get_pixels().data(),
-                context_.get_tex_width() * 4);
-
-            SDL_RenderCopy( context_.get_renderer(), context_.get_texture(), NULL, NULL );
-            SDL_RenderPresent( context_.get_renderer() );
             
+            // finally present the renderer to the GPU
+            SDL_RenderPresent( context_.get_renderer() );
+
             frames++;
             if (output_framerate_) {
                 const uint64_t end = SDL_GetPerformanceCounter();

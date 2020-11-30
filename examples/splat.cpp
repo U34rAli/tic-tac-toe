@@ -65,6 +65,8 @@ void MyApp::draw() {
                 static_cast<uint8_t>(rand() % 256), 
                 SDL_ALPHA_OPAQUE});
     }
+
+    blit_framebuffer();
 }
 
 

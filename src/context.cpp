@@ -36,6 +36,9 @@ namespace uwe {
     }
 
     Context::~Context() {
+        for (auto font: loaded_fonts_) {
+            FC_FreeFont(font);
+        }
         SDL_DestroyRenderer( renderer_ );
         SDL_DestroyWindow( window_ );
         SDL_Quit();
