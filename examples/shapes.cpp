@@ -3,6 +3,8 @@
 #include <vector>
 #include <cstring>
 
+#include <SDL2/SDL.h>
+
 #include <context.hpp>
 #include <app.hpp>
 
@@ -80,6 +82,7 @@ void MyApp::draw() {
 
     draw_font(font15_, "This is a msg", 300, 100);
 
+
     int width;
     int height;
     get_image_size(some_text_, &width, &height);
@@ -135,8 +138,23 @@ uwe::Image MyApp::render_text(std::string msg) {
     return image;
 }
 
-int main( int argc, char** argv ) {
+// int WINAPI WinMain(
+//     HINSTANCE   hInstance,
+//     HINSTANCE   hPrevInstance,
+//     PWSTR       lpCmdLine,
+//     int         nCmdShow) {
+//     SDL_SetMainReady();
+//     std::cout << "here" << std::endl;
+
+//     return 0;
+// }
+
+//int main( int argc, char** argv ) {
+int main(int argc, char *argv[]) {
+    //SDL_SetMainReady();
+    
     uwe::App* app = new MyApp{width, height};
+    std::cout << "here 2" << std::endl;
 
     //app->dump_renderer_info();
     app->run();

@@ -1,3 +1,5 @@
+*.exe
+*.obj
 a.out
 html
 latex

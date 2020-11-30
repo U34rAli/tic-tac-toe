@@ -175,6 +175,7 @@ namespace uwe {
         void draw_font(Font font, std::string msg, float x, float y) {
             FC_Draw(font, renderer_, x, y, msg.c_str()); 
         }
+
     private:
         int height_;                ///< window height
         int width_;                 ///< window width
