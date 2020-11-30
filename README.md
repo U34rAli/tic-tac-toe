@@ -41,3 +41,9 @@ You can input the Visual Studio command line in Powershell with the command:
 ```
 Import-BatchEnvironment 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat'
 ```
+
+To run an example you need to put the DLLs on the path, for example with Powershell:
+
+```
+$env:Path += ";C:\Users\cuberoo\dev\programming-cpp\assignment_2020\windows\runtime\"
+```
