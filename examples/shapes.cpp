@@ -84,8 +84,6 @@ void MyApp::draw() {
     int height;
     get_image_size(some_text_, &width, &height);
     draw_image(some_text_, uwe::make_rect(0,0, width, height), uwe::make_rect(150,30, width, height) );
-
-    
 }
 
 uwe::Image MyApp::render_text(std::string msg) {
