@@ -8,7 +8,7 @@ namespace uwe {
     Context::Context() {
     } 
 
-    void Context::init(int width, int height) {
+    void Context::init(int width, int height, std::string title) {
         width_ =  width; 
         height_ = height;
         tex_width_ = width;
@@ -21,6 +21,8 @@ namespace uwe {
             SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             width_, height_,
             SDL_WINDOW_SHOWN);
+
+        SDL_SetWindowTitle(window_, title.c_str());
 
         renderer_ = SDL_CreateRenderer(
             window_,

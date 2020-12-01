@@ -27,6 +27,12 @@ namespace uwe {
             alpha_{alpha} {
         }
 
+        Colour(const Colour& colour) : 
+           red_{colour.red_},
+            green_{colour.green_},
+            blue_{colour.blue_},
+            alpha_{colour.alpha_}  { }
+
         static Colour red() {
             return Colour{ 255, 0, 0, SDL_ALPHA_OPAQUE };
         }
@@ -78,7 +84,7 @@ namespace uwe {
         /// Destory context
         ~Context();
 
-        void init(int width, int height);
+        void init(int width, int height, std::string title);
 
         /// Output details of GPU backend and texture formats
         void dump_renderer_info();
@@ -115,9 +121,9 @@ namespace uwe {
         }
 
         void set_pixel(size_t offset, Colour colour) {
-            pixels_[offset + 0] = colour.red_;
+            pixels_[offset + 0] = colour.blue_;
             pixels_[offset + 1] = colour.green_;
-            pixels_[offset + 2] = colour.blue_;
+            pixels_[offset + 2] = colour.red_;
             pixels_[offset + 3] = colour.alpha_;
         }
 

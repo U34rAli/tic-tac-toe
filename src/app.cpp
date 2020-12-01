@@ -19,8 +19,8 @@ namespace uwe {
 
     }
 
-    void App::init(int width, int height) {
-        context_.init(width, height);
+    void App::init(int width, int height, std::string title) {
+        context_.init(width, height, title);
     }
 
     void App::run() {
@@ -34,17 +34,34 @@ namespace uwe {
 
         while( running )
         {
-            while( SDL_PollEvent( &event ) ) {
-                if( ( SDL_QUIT == event.type ) ||
-                    ( SDL_KEYDOWN == event.type && SDL_SCANCODE_ESCAPE == event.key.keysym.scancode ) ) {
+            while( SDL_PollEvent( &event ) && running ) {
+                if (event.type == SDL_QUIT || 
+                    (SDL_KEYDOWN == event.type && SDL_SCANCODE_ESCAPE == event.key.keysym.scancode) ) {
                     running = false;
                     break;
                 }
-                else if (event.type == SDL_KEYDOWN) {
-                    key_pressed(static_cast<Scancode>(event.key.keysym.scancode), event.key.repeat != 0);
-                }
-                else if (event.type == SDL_KEYUP) {
-                    key_released(static_cast<Scancode>(event.key.keysym.scancode));
+
+                switch (event.type) {
+                    case SDL_KEYDOWN: {
+                        key_pressed(static_cast<Scancode>(event.key.keysym.scancode), event.key.repeat != 0);
+                        break;
+                    }
+                    case SDL_KEYUP: {
+                        key_released(static_cast<Scancode>(event.key.keysym.scancode));
+                        break;
+                    }
+                    case SDL_MOUSEBUTTONDOWN: {
+                        mouse_pressed(event.button.x, event.button.y, static_cast<Button>(event.button.button));
+                        break;
+                    }
+                    case SDL_MOUSEBUTTONUP: {
+                        mouse_released(event.button.x, event.button.y, static_cast<Button>(event.button.button));
+                        break;
+                    }
+                    case SDL_MOUSEMOTION: {
+                        mouse_moved(event.motion.x, event.motion.y);
+                        break;
+                    }
                 }
             }
 

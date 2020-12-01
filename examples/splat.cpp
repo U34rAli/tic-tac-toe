@@ -14,7 +14,7 @@ private:
     int width_;
     int height_;
 public:
-    MyApp(int width, int height);
+    MyApp(int width, int height, std::string);
     ~MyApp();
 
     void begin() override;
@@ -24,10 +24,10 @@ public:
     void key_pressed(uwe::Scancode scancode, bool repeat) override;
 };
 
-MyApp::MyApp(int width, int height): 
+MyApp::MyApp(int width, int height, std::string title): 
     width_{width},
     height_{height} {
-        init(width, height);
+        init(width, height, title);
 }
 
 MyApp::~MyApp() {
@@ -57,7 +57,7 @@ void MyApp::draw() {
 
         const unsigned int offset = ( get_framebuffer_width() * 4 * y ) + x * 4;
 
-        set_framebuffer(
+        set_framebuffer_non_scaled(
             offset, 
             uwe::Colour{
                 static_cast<uint8_t>(rand() % 256), 
@@ -71,7 +71,7 @@ void MyApp::draw() {
 
 
 int main( int argc, char** argv ) {
-    uwe::App* app = new MyApp{width, height};
+    uwe::App* app = new MyApp{width, height, "Splat Example"};
 
     //app->dump_renderer_info();
     app->run();

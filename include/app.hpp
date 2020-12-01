@@ -18,7 +18,7 @@ namespace uwe {
         App();
         ~App();
 
-        void init(int width, int height);
+        void init(int width, int height, std::string title);
         void run();
 
         /// toggles output framerate to console
@@ -38,15 +38,15 @@ namespace uwe {
             
         };
 
-        virtual void mouse_pressed() {
+        virtual void mouse_pressed(int x, int y, Button button) {
 
         };
 
-        virtual void mouse_released() {
+        virtual void mouse_released(int x, int y, Button button) {
             
         };
 
-        virtual void mouse_moved() {
+        virtual void mouse_moved(int x, int y) {
             
         };
 
@@ -64,8 +64,19 @@ namespace uwe {
             return context_.pixel(offset);
         }
 
-        void set_framebuffer(size_t offset, Colour colour) {
+        void set_framebuffer_non_scaled(size_t offset, Colour colour) {
             context_.set_pixel(offset, colour);
+        }
+
+        void set_framebuffer(int x, int y, Colour colour) {
+             int offset = x*sizeof(uwe::Colour) + get_framebuffer_width() * sizeof(uwe::Colour) * y;
+             context_.set_pixel(offset, colour);
+        }
+
+        void clear_framebuffer(Colour colour) {
+            for (int offset = 0; offset < get_framebuffer_width() * get_framebuffer_height() * 4; offset++) {
+                context_.set_pixel(offset, colour);
+            }
         }
 
         void blit_framebuffer() {

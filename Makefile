@@ -31,7 +31,7 @@ $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(ECHO) compiling $<
 	clang -c $(CFLAGS) $< -o $@
 
-all: $(BUILD_DIR)/splat $(BUILD_DIR)/shapes
+all: $(BUILD_DIR)/splat $(BUILD_DIR)/shapes $(BUILD_DIR)/sprite
 
 $(BUILD_DIR)/splat: $(OBJECTS) $(BUILD_DIR)/splat.o Makefile
 	$(ECHO) linking $<
@@ -42,6 +42,12 @@ $(BUILD_DIR)/splat: $(OBJECTS) $(BUILD_DIR)/splat.o Makefile
 $(BUILD_DIR)/shapes: $(OBJECTS) $(BUILD_DIR)/shapes.o Makefile
 	$(ECHO) linking $<
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/shapes.o
+	# $(CC) $(LDFLAGS) -o $@ $(OBJECTS) $(BUILD_DIR)/splat.o
+	$(ECHO) success
+
+$(BUILD_DIR)/sprite: $(OBJECTS) $(BUILD_DIR)/sprite.o Makefile
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/sprite.o
 	# $(CC) $(LDFLAGS) -o $@ $(OBJECTS) $(BUILD_DIR)/splat.o
 	$(ECHO) success
 

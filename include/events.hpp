@@ -68,4 +68,9 @@ namespace uwe {
         RIGHT = SDL_SCANCODE_RIGHT,
     };
 
+    enum class Button {
+        LEFT = SDL_BUTTON_LEFT,
+        RIGHT = SDL_BUTTON_RIGHT,
+    };
+
 } // namespace uwe
