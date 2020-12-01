@@ -262,7 +262,6 @@ void MyApp::draw() {
 
 int main(int argc, char *argv[]) {
     uwe::App* app = new MyApp{width, height, "Sprite Example"};
-    std::cout << "here 2" << std::endl;
 
     app->run();
 
