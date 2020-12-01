@@ -19,6 +19,7 @@ CPP_SOURCES = src/app.cpp src.cpp/context.cpp
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
 vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
 vpath %.cpp examples
+vpath %.cpp assignment
 
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
@@ -31,24 +32,33 @@ $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(ECHO) compiling $<
 	clang -c $(CFLAGS) $< -o $@
 
-all: $(BUILD_DIR)/splat $(BUILD_DIR)/shapes $(BUILD_DIR)/sprite
+all: $(BUILD_DIR)/splat $(BUILD_DIR)/shapes $(BUILD_DIR)/sprite $(BUILD_DIR)/assignment
 
 $(BUILD_DIR)/splat: $(OBJECTS) $(BUILD_DIR)/splat.o Makefile
 	$(ECHO) linking $<
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/splat.o
 	# $(CC) $(LDFLAGS) -o $@ $(OBJECTS) $(BUILD_DIR)/splat.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/splat
 	$(ECHO) success
 
 $(BUILD_DIR)/shapes: $(OBJECTS) $(BUILD_DIR)/shapes.o Makefile
 	$(ECHO) linking $<
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/shapes.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/shapes
 	# $(CC) $(LDFLAGS) -o $@ $(OBJECTS) $(BUILD_DIR)/splat.o
 	$(ECHO) success
 
 $(BUILD_DIR)/sprite: $(OBJECTS) $(BUILD_DIR)/sprite.o Makefile
 	$(ECHO) linking $<
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/sprite.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/sprite
 	# $(CC) $(LDFLAGS) -o $@ $(OBJECTS) $(BUILD_DIR)/splat.o
+	$(ECHO) success
+
+$(BUILD_DIR)/assignment: $(OBJECTS) $(BUILD_DIR)/assignment.o Makefile
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/assignment.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/assignment
 	$(ECHO) success
 
 #######################################
@@ -61,6 +71,5 @@ clean:
 # dependencies
 #######################################
 -include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
-
 
 .PHONY: clean all
