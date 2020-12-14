@@ -2,6 +2,12 @@
 
 # Assignment
 
+Fork and clone the repo [https://gitlab.uwe.ac.uk/br-gaster/assignment_2020](https://gitlab.uwe.ac.uk/br-gaster/assignment_2020).
+
+Now follow the instructions below.
+
+As normal all work should be peformed within your forked repo and sumitted to Gitlab.uwe.ac.uk.
+
 ## Introduction
 
 A 2D interaction and drawing API is provided, which includes the following functionality:
