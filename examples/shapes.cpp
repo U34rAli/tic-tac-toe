@@ -44,12 +44,21 @@ MyApp::~MyApp() {
 }
 
 void MyApp::begin() {
+#if !defined(_WIN32) && (defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)))
     text_ = create_image("./assets/ZX_Spectrum_character_set.png");
+#else
+    text_ = create_image("../assets/ZX_Spectrum_character_set.png");
+#endif
     get_image_size(text_, &text_width_, &text_height_);
 
     some_text_ = render_text("abc");
 
+#if !defined(_WIN32) && (defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)))
     font15_ = create_font("./assets/fonts/FreeSans.ttf", 15, uwe::Colour::red());
+#else
+    font15_ = create_font("../assets/fonts/FreeSans.ttf", 15, uwe::Colour::red());
+#endif
+
 }
 
 void MyApp::update() {
