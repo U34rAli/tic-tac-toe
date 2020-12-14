@@ -14,7 +14,7 @@ ECHO = echo
 BUILD_DIR = build
 
 C_SOURCES = src/SDL_FontCache.c
-CPP_SOURCES = src/app.cpp src.cpp/context.cpp
+CPP_SOURCES = src/app.cpp src/context.cpp
 
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
 vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
@@ -62,7 +62,7 @@ $(BUILD_DIR)/assignment: $(OBJECTS) $(BUILD_DIR)/assignment.o Makefile
 # clean up
 #######################################
 clean:
-	-rm -fR $(BUILD_DIR)/assignment $(BUILD_DIR)/sprite $(BUILD_DIR)/shapes $(BUILD_DIR)/splat
+	-rm -fR $(BUILD_DIR)/assignment $(BUILD_DIR)/sprite $(BUILD_DIR)/shapes $(BUILD_DIR)/splat $(BUILD_DIR)/*.o
 
 #######################################
 # dependencies
