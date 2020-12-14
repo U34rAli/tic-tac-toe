@@ -137,12 +137,9 @@ uwe::Image MyApp::render_text(std::string msg) {
 }
 
 int main(int argc, char *argv[]) {
-    //SDL_SetMainReady();
     
     uwe::App* app = new MyApp{width, height, "Shapes Example"};
-    std::cout << "here 2" << std::endl;
 
-    //app->dump_renderer_info();
     app->run();
 
     return 0;
