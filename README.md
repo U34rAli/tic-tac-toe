@@ -238,7 +238,7 @@ void MyApp::draw() {
 }
 ```
 
-Your task is to fill these functions out to meet the requirments of your chossen applicaiton. Each of the provided examples follow this approach and give ideas of how to use different elements of the framework.
+Your task is to fill these functions out to meet the requirments of your chosen application. Each of the provided examples follow this approach and give ideas of how to use different elements of the framework.
 
 # Framework
 
