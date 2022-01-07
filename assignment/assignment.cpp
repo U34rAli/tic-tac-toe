@@ -82,13 +82,11 @@ void MyApp::draw_signs(){
     {
         if (tictactoe.box_clicked[i] == 0)
         {
-            int *data_xy = tictactoe.get_draw_position(i);
-            draw_font(font15_, "0", data_xy[0] - MARGIN_X, data_xy[1] - MARGIN_Y);
+            draw_sign(i, "0");
         }
         else if (tictactoe.box_clicked[i] == 1)
         {
-            int *data_xy = tictactoe.get_draw_position(i);
-            draw_font(font15_, "X", data_xy[0] - MARGIN_X, data_xy[1] - MARGIN_Y);
+            draw_sign(i, "X");
         }
     }
 }
@@ -130,18 +128,15 @@ void MyApp::mouse_pressed(int x, int y, uwe::Button button)
             tictactoe.box_clicked[box_number] = USER_SIGN;
             tictactoe.un_filled_boxes -= 1;
             int winner = tictactoe.find_winner(USER_SIGN);
+
             if (winner != -1)
             {
                 return;
             }
-
             if (tictactoe.un_filled_boxes <= 0)
             {
                 return;
             }
-
-            draw_sign(box_number, "X");
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
             int computer_decision = tictactoe.take_decision();
             printf("Computer decision: %d \n", computer_decision);
@@ -169,7 +164,7 @@ void MyApp::mouse_moved(int x, int y)
 
 void MyApp::draw()
 {
-    // clear(uwe::Colour::black());
+    clear(uwe::Colour::black());
     set_draw_color(uwe::Colour::red());
 
     if (press_enter == false)
@@ -180,7 +175,8 @@ void MyApp::draw()
     {
         if (tictactoe.winner == USER_SIGN)
         {
-            draw_font(font15_, "You Win", 180, 20);
+            tictactoe.score += 1;
+            draw_font(font15_, "You Won", 180, 20);
         }
         else if (tictactoe.winner == COMPUTER_SIGN)
         {
@@ -192,11 +188,13 @@ void MyApp::draw()
         }
 
         draw_font(font15_, "Press Enter", 150, 150);
+        tictactoe.games_count += 1;
         tictactoe.game_over = true;
     }
     else
     {
         draw_board();
+        draw_signs();
     }
 }
 

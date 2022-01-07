@@ -29,6 +29,8 @@ public:
     int un_filled_boxes = 9;
     int winner = -1;
     bool game_over = false;
+    int score =0;
+    int games_count = 0;
     Box boxes[9];
     TICTACTOE(int width, int height);
     TICTACTOE();
