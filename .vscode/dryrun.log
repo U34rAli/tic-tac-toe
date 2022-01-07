@@ -1,0 +1,34 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/muhammadumar/Projects/assignment_2020'
+echo compiling src/app.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include src/app.cpp -o build/app.o
+echo compiling src/context.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include src/context.cpp -o build/context.o
+echo compiling src/SDL_FontCache.c
+clang -c -I./osx/include/ -I./osx/include/SDL2/  -I./include src/SDL_FontCache.c -o build/SDL_FontCache.o
+echo compiling examples/splat.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include examples/splat.cpp -o build/splat.o
+echo linking build/app.o
+clang++ -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o build/splat build/app.o build/context.o build/SDL_FontCache.o build/splat.o
+install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib build/splat
+echo success
+echo compiling examples/shapes.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include examples/shapes.cpp -o build/shapes.o
+echo linking build/app.o
+clang++ -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o build/shapes build/app.o build/context.o build/SDL_FontCache.o build/shapes.o
+install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib build/shapes
+echo success
+echo compiling examples/sprite.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include examples/sprite.cpp -o build/sprite.o
+echo linking build/app.o
+clang++ -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o build/sprite build/app.o build/context.o build/SDL_FontCache.o build/sprite.o
+install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib build/sprite
+echo success
+echo compiling assignment/assignment.cpp
+clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include assignment/assignment.cpp -o build/assignment.o
+echo linking build/app.o
+clang++ -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o build/assignment build/app.o build/context.o build/SDL_FontCache.o build/assignment.o
+install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib build/assignment
+echo success
+make: Leaving directory `/Users/muhammadumar/Projects/assignment_2020'
+ 

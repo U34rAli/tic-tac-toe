@@ -1,0 +1,511 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Fri Jan  7 16:29:53 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+VSCODE_LOG_NATIVE = false
+# makefile (from `Makefile', line 17)
+CPP_SOURCES = src/app.cpp src/context.cpp
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from `Makefile', line 3)
+CPPFLAGS = -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/muhammadumar/Projects/assignment_2020
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `Makefile', line 4)
+CFLAGS = -I./osx/include/ -I./osx/include/SDL2/  -I./include
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# makefile (from `Makefile', line 11)
+CP = cp
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/b6/1sfk9q7d18d30h8wyrrpkhxw0000gp/T/vscode-ipc-7b57ed67-a76d-4f81-be7e-d07576778236.sock
+# environment
+VSCODE_CWD = /
+# environment
+PATH = /Users/muhammadumar/.pyenv/shims:/Users/muhammadumar/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+# makefile (from `Makefile', line 2)
+LD = clang++
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+PYENV_ROOT = /Users/muhammadumar/.pyenv
+# makefile (from `Makefile', line 5)
+LDFLAGS = -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# makefile (from `Makefile', line 12)
+ECHO = echo
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.bqlyH7TI0O/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /Users/muhammadumar/Projects/assignment_2020
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /Users/muhammadumar
+# default
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/muhammadumar/Library/Application Support/Code/CachedData/899d46d82c4c95423fb7e10e68eba52050e30ba3
+# environment
+LOGNAME = muhammadumar
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+ZSH = /Users/muhammadumar/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# makefile (from `Makefile', line 1)
+CC = clang++
+# makefile (from `Makefile', line 14)
+BUILD_DIR = build
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = muhammadumar
+# makefile
+.DEFAULT_GOAL := all
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# makefile (from `Makefile', line 9)
+LIBDIR = S(ROOTDIR)/osx/lib
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/b6/1sfk9q7d18d30h8wyrrpkhxw0000gp/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/muhammadumar/Library/Application Support/Code/1.63.2-main.sock
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.11200767.11200773
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F6:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# makefile (from `Makefile', line 16)
+C_SOURCES = src/SDL_FontCache.c
+# default
+SUFFIXES := 
+# makefile (from `Makefile', line 7)
+ROOTDIR = ./
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# makefile (from `Makefile', line 24)
+OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o))) $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+# environment
+LANG = C
+# environment
+VSCODE_PID = 46918
+# variable set hash-table stats:
+# Load=80/1024=8%, Rehash=0, Collisions=1/151=1%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# assignment (device 16777220, inode 11199815): 3 files, no impossibilities.
+# . (device 16777220, inode 11199722): 18 files, no impossibilities.
+# .dep (device 16777220, inode 11249154): 2 files, no impossibilities.
+# examples (device 16777220, inode 11199819): 5 files, no impossibilities.
+# src (device 16777220, inode 11199960): 5 files, no impossibilities.
+
+# 33 files, no impossibilities in 5 directories.
+
+# Implicit Rules
+
+build/%.o: %.cpp Makefile | build
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+build/%.o: %.c Makefile | build
+#  commands to execute (from `Makefile', line 32):
+	$(ECHO) compiling $<
+	clang -c $(CFLAGS) $< -o $@
+	
+
+# 2 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+build/shapes.o: examples/shapes.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `shapes'
+#  Last modified 2022-01-06 10:46:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+build/shapes: build/app.o build/context.o build/SDL_FontCache.o build/shapes.o Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-01-06 10:46:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 44):
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/shapes.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/shapes
+	$(ECHO) success
+	
+
+all: build/splat build/shapes build/sprite build/assignment
+#  Phony target (prerequisite of .PHONY).
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+
+.PHONY: clean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+examples/shapes.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+build/context.o: src/context.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `context'
+#  Last modified 2022-01-06 10:46:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/app.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+ 
+# Not a target:
+build:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-07 14:44:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+build/SDL_FontCache.o: src/SDL_FontCache.c Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `SDL_FontCache'
+#  Last modified 2022-01-06 10:46:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 32):
+	$(ECHO) compiling $<
+	clang -c $(CFLAGS) $< -o $@
+	
+
+build/sprite: build/app.o build/context.o build/SDL_FontCache.o build/sprite.o Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-01-06 10:46:24
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 50):
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/sprite.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/sprite
+	$(ECHO) success
+	
+
+build/sprite.o: examples/sprite.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `sprite'
+#  Last modified 2022-01-06 10:46:24
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+build/splat.o: examples/splat.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `splat'
+#  Last modified 2022-01-06 10:46:21
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+build/splat: build/app.o build/context.o build/SDL_FontCache.o build/splat.o Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-01-06 10:46:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 38):
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/splat.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/splat
+	$(ECHO) success
+	
+
+# Not a target:
+assignment/assignment.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-07 14:47:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+examples/sprite.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+examples/splat.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+build/app.o: src/app.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `app'
+#  Last modified 2022-01-06 10:46:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 65):
+	-rm -fR $(BUILD_DIR)/assignment $(BUILD_DIR)/sprite $(BUILD_DIR)/shapes $(BUILD_DIR)/splat $(BUILD_DIR)/*.o
+	
+
+# Not a target:
+src/context.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+build/assignment.o: assignment/assignment.cpp Makefile | build
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `assignment'
+#  Last modified 2022-01-07 14:44:23
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := build/assignment.o
+# automatic
+# % := 
+# automatic
+# * := assignment
+# automatic
+# + := assignment/assignment.cpp Makefile
+# automatic
+# | := build
+# automatic
+# < := assignment/assignment.cpp
+# automatic
+# ^ := assignment/assignment.cpp Makefile
+# automatic
+# ? := assignment/assignment.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
+#  commands to execute (from `Makefile', line 28):
+	$(ECHO) compiling $<
+	$(CC) -c $(CPPFLAGS) $< -o $@
+	
+
+build/assignment: build/app.o build/context.o build/SDL_FontCache.o build/assignment.o Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-01-07 14:44:23
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `Makefile', line 56):
+	$(ECHO) linking $<
+	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/assignment.o
+	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/assignment
+	$(ECHO) success
+	
+
+# Not a target:
+src/SDL_FontCache.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-01-06 10:20:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# files hash-table stats:
+# Load=25/1024=2%, Rehash=0, Collisions=0/182=0%
+# VPATH Search Paths
+
+vpath %.cpp src
+vpath %.cpp examples
+vpath %.cpp assignment
+vpath %.c src
+
+# 4 `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Fri Jan  7 16:29:53 2022
+
+ 
