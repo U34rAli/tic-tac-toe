@@ -179,23 +179,33 @@ void MyApp::draw()
     }
     else if (tictactoe.game_over)
     {
+        int start = 5;
         clear_screen();
+        draw_font(font15_, "Press Enter", 150, 100);
+
         if (tictactoe.winner == USER_SIGN)
         {
-            draw_font(font15_, "You Won", 180, 20);
+            draw_font(font15_, "You Won", 180, start);
         }
         else if (tictactoe.winner == COMPUTER_SIGN)
         {
-            draw_font(font15_, "You Lose", 180, 20);
+            draw_font(font15_, "You Lose", 180, start);
         }
         else
         {
-            draw_font(font15_, "Draw", 200, 20);
+            draw_font(font15_, "Draw", 200, start);
         }
 
-        std::string score = "Score " + std::to_string(tictactoe.score) + "/" + std::to_string(tictactoe.games_count);
-        draw_font(font15_, "Press Enter", 150, 150);
-        draw_font(font15_, score, 150, 250);
+        std::string score = "You: " + std::to_string(tictactoe.score);
+        std::string computer = "Computer: " + std::to_string(tictactoe.games_count - tictactoe.score);
+        draw_font(font15_, score, 150, 200);
+        draw_font(font15_, computer, 150, 270);
+    
+        if (tictactoe.draw_count > 0){
+            std::string draw = "Draw " + std::to_string(tictactoe.draw_count);
+            draw_font(font15_, draw, 150, 370);
+        }
+        
         tictactoe.game_over = true;
     }
     else
