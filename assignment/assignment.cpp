@@ -15,8 +15,6 @@ using namespace std;
 const int width = 640;
 const int height = 480;
 const int font_size = 60;
-const int USER_SIGN = 1;     // 1 == X;
-const int COMPUTER_SIGN = 0; // 0 == 0;
 const int MARGIN_X = 20;
 const int MARGIN_Y = 40;
 
@@ -26,7 +24,8 @@ class MyApp : public uwe::App
 private:
     uwe::Font font15_;
     TICTACTOE tictactoe;
-    bool press_enter = false;
+    bool start_game = false;
+    bool wait = false;
 
 public:
     MyApp(int width, int height, std::string title);
@@ -37,7 +36,10 @@ public:
     void draw() override;
     void draw_board();
     void draw_signs();
+    void clear_screen();
     void draw_sign(int position, string sign);
+    bool is_computer_turn = false;
+    void computer_turn();
 
     void key_pressed(uwe::Scancode scancode, bool repeat) override;
 
@@ -102,11 +104,13 @@ void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
     {
     case uwe::Scancode::RETURN:
     {
-        press_enter = true;
+        start_game = true;
         if (tictactoe.game_over)
         {
             tictactoe.reset();
+            return;
         }
+        tictactoe.reset();
     }
     default:
     {
@@ -117,41 +121,40 @@ void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
 
 void MyApp::mouse_pressed(int x, int y, uwe::Button button)
 {
+    if (is_computer_turn){
+        printf("Waiting for computer turn.\n");
+        return;
+    }
     printf("Mouse Pressed. X: %d, Y: %d \n", x, y);
     int box_number = tictactoe.get_clicked_box(x, y);
     printf("Box number: %d \n", box_number);
-
-    if (press_enter && tictactoe.un_filled_boxes > 0)
+    if (start_game && tictactoe.un_filled_boxes > 0)
     {
         if (tictactoe.box_clicked[box_number] == -1)
         {
-            tictactoe.box_clicked[box_number] = USER_SIGN;
-            tictactoe.un_filled_boxes -= 1;
-            int winner = tictactoe.find_winner(USER_SIGN);
-
-            if (winner != -1)
-            {
-                return;
+            tictactoe.click_box(box_number, USER_SIGN);
+            tictactoe.find_winner(USER_SIGN);
+            if (tictactoe.game_over){
+                is_computer_turn = false;
             }
-            if (tictactoe.un_filled_boxes <= 0)
-            {
-                return;
-            }
-
-            int computer_decision = tictactoe.take_decision();
-            printf("Computer decision: %d \n", computer_decision);
-            if (computer_decision != -1)
-            {
-                tictactoe.box_clicked[computer_decision] = COMPUTER_SIGN;
-                tictactoe.un_filled_boxes -= 1;
-                int winner = tictactoe.find_winner(COMPUTER_SIGN);
-                if (winner != -1)
-                {
-                    return;
-                }
+            else{
+                is_computer_turn = true;
+                computer_turn();
             }
         }
     }
+}
+
+void MyApp::computer_turn(){
+    printf("Computer thinking:\n");
+    int computer_decision = tictactoe.take_decision();
+    printf("Computer decision: %d \n", computer_decision);
+    if (computer_decision != -1)
+    {
+        tictactoe.click_box(computer_decision, COMPUTER_SIGN);
+        tictactoe.find_winner(COMPUTER_SIGN);
+    }
+    is_computer_turn = false;
 }
 
 void MyApp::mouse_released(int x, int y, uwe::Button button)
@@ -162,20 +165,23 @@ void MyApp::mouse_moved(int x, int y)
 {
 }
 
-void MyApp::draw()
-{
+void MyApp::clear_screen(){
     clear(uwe::Colour::black());
     set_draw_color(uwe::Colour::red());
+}
 
-    if (press_enter == false)
+void MyApp::draw()
+{
+    if (start_game == false)
     {
+        clear_screen();
         draw_font(font15_, "Press Enter", 150, 150);
     }
-    else if (tictactoe.un_filled_boxes == 0 or tictactoe.winner != -1)
+    else if (tictactoe.game_over)
     {
+        clear_screen();
         if (tictactoe.winner == USER_SIGN)
         {
-            tictactoe.score += 1;
             draw_font(font15_, "You Won", 180, 20);
         }
         else if (tictactoe.winner == COMPUTER_SIGN)
@@ -187,12 +193,14 @@ void MyApp::draw()
             draw_font(font15_, "Draw", 200, 20);
         }
 
+        std::string score = "Score " + std::to_string(tictactoe.score) + "/" + std::to_string(tictactoe.games_count);
         draw_font(font15_, "Press Enter", 150, 150);
-        tictactoe.games_count += 1;
+        draw_font(font15_, score, 150, 250);
         tictactoe.game_over = true;
     }
     else
     {
+        clear_screen();
         draw_board();
         draw_signs();
     }

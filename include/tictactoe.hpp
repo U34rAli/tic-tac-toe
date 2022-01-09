@@ -1,9 +1,12 @@
 #include <iostream>
 
+const int USER_SIGN = 1;
+const int COMPUTER_SIGN = 0; // 0 == 0;
 typedef struct SDL_Box
 {
     int up_right_x, up_right_y;
     int bottom_left_x, bottom_left_y;
+    bool new_click = false;
 } SDL_Box;
 
 typedef SDL_Box Box;
@@ -31,6 +34,8 @@ public:
     bool game_over = false;
     int score =0;
     int games_count = 0;
+    int draw_count = 0;
+    bool is_computer_turn = false;
     Box boxes[9];
     TICTACTOE(int width, int height);
     TICTACTOE();
@@ -39,6 +44,9 @@ public:
     int take_decision();
     int find_winner(int user_sign);
     void reset();
+    void draw_check();
+    bool click_box(int position, int sign);
+    void update_score();
 };
 
 TICTACTOE::TICTACTOE(int width, int height)
@@ -86,7 +94,7 @@ int TICTACTOE::get_clicked_box(int x, int y)
 
 int TICTACTOE::take_decision()
 {
-    while (true)
+    while (!game_over)
     {
         int box_number = rand() % 9;
         if (box_clicked[box_number] == -1)
@@ -105,6 +113,7 @@ void TICTACTOE::reset()
     }
     un_filled_boxes = 9;
     winner = -1;
+    games_count += 1;
     game_over = false;
 }
 
@@ -121,6 +130,7 @@ int TICTACTOE::find_winner(int user_sign)
         {
             winner = user_sign;
             printf("winner: %d\n", user_sign);
+            update_score();
             return user_sign;
         }
     }
@@ -131,6 +141,7 @@ int TICTACTOE::find_winner(int user_sign)
         {
             winner = user_sign;
             printf("winner: %d\n", user_sign);
+            update_score();
             return user_sign;
         }
     }
@@ -146,10 +157,43 @@ int TICTACTOE::find_winner(int user_sign)
     {
         winner = user_sign;
         printf("winner: %d\n", user_sign);
+        update_score();
         return user_sign;
     }
 
+    draw_check();
     return -1;
+}
+
+
+void TICTACTOE::update_score()
+{
+    printf("score: %d\n",score);
+    if (winner == USER_SIGN){
+        score += 1;
+    }
+    game_over = true;
+}
+
+
+void TICTACTOE::draw_check()
+{
+    for(int i = 0; i < 9; i++){
+        if (box_clicked[i] == -1){
+            return;
+        }
+    }
+    draw_count += 1;
+    game_over = true;
+}
+
+bool TICTACTOE::click_box(int position, int sign)
+{
+    if (box_clicked[position] == -1){
+        box_clicked[position] = sign;
+        return true;
+    }
+    return false;
 }
 
 int *TICTACTOE::get_draw_position(int box_number)
