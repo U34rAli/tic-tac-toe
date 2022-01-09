@@ -197,7 +197,7 @@ void MyApp::draw()
         }
 
         std::string score = "You: " + std::to_string(tictactoe.score);
-        std::string computer = "Computer: " + std::to_string(tictactoe.games_count - tictactoe.score);
+        std::string computer = "Computer: " + std::to_string(tictactoe.games_count - tictactoe.score - tictactoe.draw_count);
         draw_font(font15_, score, 150, 200);
         draw_font(font15_, computer, 150, 270);
     
