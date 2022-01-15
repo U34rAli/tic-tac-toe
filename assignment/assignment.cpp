@@ -3,46 +3,41 @@
 #include <vector>
 #include <cstring>
 #include <tuple>
-#include <chrono>
-#include <thread>
 
 #include <context.hpp>
 #include <app.hpp>
-#include <tictactoe.hpp>
+#include "bridge.hpp"
 
 using namespace std;
 
 const int width = 640;
 const int height = 480;
-const int font_size = 60;
-const int MARGIN_X = 20;
-const int MARGIN_Y = 40;
+const int font_size = 50;
 
+const int MARGIN = 50; //Margin between windows and game.
+const int FONT_MARGIN_X = 20;
+const int FONT_MARGIN_Y = 40;
 
 class MyApp : public uwe::App
 {
 private:
     uwe::Font font15_;
-    TICTACTOE tictactoe;
-    bool start_game = false;
-    bool wait = false;
+    uwe::Font text_font;
+    Bridge game_bridge;
 
 public:
     MyApp(int width, int height, std::string title);
     ~MyApp();
 
+    bool is_computer_turn = false;
     void begin() override;
     void update() override;
     void draw() override;
-    void draw_board();
     void draw_signs();
     void clear_screen();
+    void draw_board();
     void draw_sign(int position, string sign);
-    bool is_computer_turn = false;
-    void computer_turn();
-
     void key_pressed(uwe::Scancode scancode, bool repeat) override;
-
     void mouse_pressed(int x, int y, uwe::Button button) override;
     void mouse_released(int x, int y, uwe::Button button) override;
     void mouse_moved(int x, int y) override;
@@ -51,7 +46,7 @@ public:
 MyApp::MyApp(int width, int height, std::string title)
 {
     init(width, height, title);
-    tictactoe = TICTACTOE(width, height);
+    game_bridge = Bridge(width-MARGIN*2, height-MARGIN*2, MARGIN);
 }
 
 MyApp::~MyApp()
@@ -60,42 +55,40 @@ MyApp::~MyApp()
 
 void MyApp::begin()
 {
-#if !defined(_WIN32) && (defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)))
     font15_ = create_font("./assets/fonts/FreeSans.ttf", font_size, uwe::Colour::white());
-#else
-    font15_ = create_font("../assets/fonts/FreeSans.ttf", font_size, uwe::Colour::white());
-#endif
+    text_font = create_font("./assets/fonts/FreeSans.ttf", 25, uwe::Colour::white());
 }
 
 void MyApp::update(){}
 
 void MyApp::draw_board(){
-    // Draw vertical lines
-    draw_rect_fill(tictactoe.box_width, 0, tictactoe.line_boldness, height);
-    draw_rect_fill(tictactoe.box_width * 2, 0, tictactoe.line_boldness, height);
-    // Draw horizontal lines
-    draw_rect_fill(0, tictactoe.box_height, width, tictactoe.line_boldness);
-    draw_rect_fill(0, tictactoe.box_height * 2, width, tictactoe.line_boldness);
+    for(int i = 0; i < 4; i++){
+        int x = game_bridge.lines[i].top_right_x;
+        int y = game_bridge.lines[i].top_right_y;
+        int width = game_bridge.lines[i].bottom_left_x;
+        int height = game_bridge.lines[i].bottom_left_y;
+        draw_rect_fill(x,y,width,height);
+    }
+
+}
+
+void MyApp::draw_sign(int position, string sign){
+    int *data_xy = game_bridge.get_draw_position(position);
+    draw_font(font15_, sign, data_xy[0] - FONT_MARGIN_X, data_xy[1] - FONT_MARGIN_Y);
 }
 
 void MyApp::draw_signs(){
-    int len = sizeof(tictactoe.boxes) / sizeof(tictactoe.boxes[0]);
-    for (int i = 0; i < len; i++)
+    for (int i = 0; i < 9; i++)
     {
-        if (tictactoe.box_clicked[i] == 0)
+        if (game_bridge.get_box_sign(i) == 0)
         {
             draw_sign(i, "0");
         }
-        else if (tictactoe.box_clicked[i] == 1)
+        else if (game_bridge.get_box_sign(i) == 1)
         {
             draw_sign(i, "X");
         }
     }
-}
-
-void MyApp::draw_sign(int position, string sign){
-    int *data_xy = tictactoe.get_draw_position(position);
-    draw_font(font15_, sign, data_xy[0] - MARGIN_X, data_xy[1] - MARGIN_Y);
 }
 
 void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
@@ -104,13 +97,7 @@ void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
     {
     case uwe::Scancode::RETURN:
     {
-        start_game = true;
-        if (tictactoe.game_over)
-        {
-            tictactoe.reset();
-            return;
-        }
-        tictactoe.reset();
+        game_bridge.reset();
     }
     default:
     {
@@ -121,41 +108,11 @@ void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
 
 void MyApp::mouse_pressed(int x, int y, uwe::Button button)
 {
-    if (is_computer_turn){
-        printf("Waiting for computer turn.\n");
-        return;
-    }
-    printf("Mouse Pressed. X: %d, Y: %d \n", x, y);
-    int box_number = tictactoe.get_clicked_box(x, y);
-    printf("Box number: %d \n", box_number);
-    if (start_game && tictactoe.un_filled_boxes > 0)
-    {
-        if (tictactoe.box_clicked[box_number] == -1)
-        {
-            tictactoe.click_box(box_number, USER_SIGN);
-            tictactoe.find_winner(USER_SIGN);
-            if (tictactoe.game_over){
-                is_computer_turn = false;
-            }
-            else{
-                is_computer_turn = true;
-                computer_turn();
-            }
-        }
-    }
+    int box_number = game_bridge.get_clicked_box(x, y);
+    bool status = game_bridge.user_clicked_box(box_number, USER_SIGN);
+    printf("Box clicked: %d, Status: %d\n", box_number, status);
 }
 
-void MyApp::computer_turn(){
-    printf("Computer thinking:\n");
-    int computer_decision = tictactoe.take_decision();
-    printf("Computer decision: %d \n", computer_decision);
-    if (computer_decision != -1)
-    {
-        tictactoe.click_box(computer_decision, COMPUTER_SIGN);
-        tictactoe.find_winner(COMPUTER_SIGN);
-    }
-    is_computer_turn = false;
-}
 
 void MyApp::mouse_released(int x, int y, uwe::Button button)
 {
@@ -167,58 +124,27 @@ void MyApp::mouse_moved(int x, int y)
 
 void MyApp::clear_screen(){
     clear(uwe::Colour::black());
-    set_draw_color(uwe::Colour::red());
+    set_draw_color(uwe::Colour::green());
 }
 
 void MyApp::draw()
 {
-    if (start_game == false)
-    {
-        clear_screen();
-        draw_font(font15_, "Press Enter", 150, 150);
-    }
-    else if (tictactoe.game_over)
-    {
-        int start = 5;
-        clear_screen();
-        draw_font(font15_, "Press Enter", 150, 100);
+    clear_screen();
+    draw_board();
+    draw_signs();
 
-        if (tictactoe.winner == USER_SIGN)
-        {
-            draw_font(font15_, "You Won", 180, start);
-        }
-        else if (tictactoe.winner == COMPUTER_SIGN)
-        {
-            draw_font(font15_, "You Lose", 180, start);
-        }
-        else
-        {
-            draw_font(font15_, "Draw", 200, start);
-        }
-
-        std::string score = "You: " + std::to_string(tictactoe.score);
-        std::string computer = "Computer: " + std::to_string(tictactoe.games_count - tictactoe.score - tictactoe.draw_count);
-        draw_font(font15_, score, 150, 200);
-        draw_font(font15_, computer, 150, 270);
-    
-        if (tictactoe.draw_count > 0){
-            std::string draw = "Draw " + std::to_string(tictactoe.draw_count);
-            draw_font(font15_, draw, 150, 370);
-        }
-        
-        tictactoe.game_over = true;
-    }
-    else
-    {
-        clear_screen();
-        draw_board();
-        draw_signs();
-    }
+    std::string score = "You: " + std::to_string(game_bridge.user_score);
+    std::string computer = "Computer: " + std::to_string(game_bridge.computer_score);
+    std::string draw = "Draw: " + std::to_string(game_bridge.draw_score);
+    draw_font(text_font, score, 50, 440);
+    draw_font(text_font, computer, 150, 440);
+    draw_font(text_font, draw, width-150, 440);
+    draw_font(text_font, "Press Enter to Play.", width/3, 1);
 }
 
 int main(int argc, char *argv[])
 {
-    uwe::App *app = new MyApp{width, height, "Assignment"};
+    uwe::App *app = new MyApp{width, height, "Assignment: TIC TAC TOE"};
     app->run();
 
     return 0;

@@ -5,6 +5,7 @@
         "vector": "cpp",
         "tuple": "cpp",
         "__availability": "cpp",
-        "__hash_table": "cpp"
+        "__hash_table": "cpp",
+        "__node_handle": "cpp"
     }
 }
