@@ -24,6 +24,7 @@ echo linking build/app.o
 clang++ -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o build/sprite build/app.o build/context.o build/SDL_FontCache.o build/sprite.o
 install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib build/sprite
 echo success
+ 
 echo compiling assignment/assignment.cpp
 clang++ -c -std=c++17 -I./osx/include/ -I./osx/include/SDL2/  -I./include assignment/assignment.cpp -o build/assignment.o
 echo linking build/app.o
