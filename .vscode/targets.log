@@ -8,8 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat Jan 15 09:14:06 2022
- 
+# Make data base, printed on Sat Jan 22 15:33:00 2022
 
 # Variables
 
@@ -48,7 +47,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/b6/1sfk9q7d18d30h8wyrrpkhxw0000gp/T/vscode-ipc-1ab3e903-44f3-4d39-b1a0-1fe1944336fc.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/b6/1sfk9q7d18d30h8wyrrpkhxw0000gp/T/vscode-ipc-d5a7e03d-ee4a-4dd5-80ba-921413727e18.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -123,7 +122,6 @@ LESS = -R
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # makefile (from `Makefile', line 9)
 LIBDIR = S(ROOTDIR)/osx/lib
- 
 # default
 .VARIABLES := 
 # environment
@@ -175,23 +173,21 @@ LANG = C
 # environment
 VSCODE_PID = 99333
 # variable set hash-table stats:
- 
 # Load=80/1024=8%, Rehash=0, Collisions=1/146=1%
 
 # Pattern-specific Variable Values
- 
 
 # No pattern-specific variable values.
 
 # Directories
 
-# assignment (device 16777220, inode 11199815): 3 files, no impossibilities.
+# assignment (device 16777220, inode 11199815): 5 files, no impossibilities.
 # . (device 16777220, inode 11199722): 18 files, no impossibilities.
 # .dep (device 16777220, inode 11249154): 2 files, no impossibilities.
 # examples (device 16777220, inode 11199819): 5 files, no impossibilities.
 # src (device 16777220, inode 11199960): 5 files, no impossibilities.
 
-# 33 files, no impossibilities in 5 directories.
+# 35 files, no impossibilities in 5 directories.
 
 # Implicit Rules
 
@@ -267,7 +263,6 @@ build/context.o: src/context.cpp Makefile | build
 #  Implicit/static pattern stem: `context'
 #  Last modified 2022-01-06 10:46:20
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -302,8 +297,9 @@ src/app.cpp:
 
 # Not a target:
 build:
+ 
 #  Implicit rule search has been done.
-#  Last modified 2022-01-09 21:15:01
+#  Last modified 2022-01-22 15:20:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -332,7 +328,6 @@ build/sprite: build/app.o build/context.o build/SDL_FontCache.o build/sprite.o M
 #  commands to execute (from `Makefile', line 50):
 	$(ECHO) linking $<
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/sprite.o
- 
 	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/sprite
 	$(ECHO) success
 	
@@ -363,7 +358,6 @@ build/splat.o: examples/splat.cpp Makefile | build
 	$(CC) -c $(CPPFLAGS) $< -o $@
 	
 
- 
 build/splat: build/app.o build/context.o build/SDL_FontCache.o build/splat.o Makefile
 #  Implicit rule search has not been done.
 #  Last modified 2022-01-09 17:27:57
@@ -373,7 +367,6 @@ build/splat: build/app.o build/context.o build/SDL_FontCache.o build/splat.o Mak
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 38):
 	$(ECHO) linking $<
- 
 	$(CC) -L./osx/lib/ -lSDL2 -lSDL2_ttf -lSDL2_image -lfreetype -lpng -lwebp -ltiff -ljpeg -lbz2 -lz -framework OpenGL -o $@ $(OBJECTS) build/splat.o
 	install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib ./osx/runtime/libSDL2-2.0.0.dylib $(BUILD_DIR)/splat
 	$(ECHO) success
@@ -382,7 +375,7 @@ build/splat: build/app.o build/context.o build/SDL_FontCache.o build/splat.o Mak
 # Not a target:
 assignment/assignment.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-09 21:14:47
+#  Last modified 2022-01-22 15:20:47
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -446,7 +439,7 @@ src/context.cpp:
 build/assignment.o: assignment/assignment.cpp Makefile | build
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `assignment'
-#  Last modified 2022-01-09 21:15:01
+#  Last modified 2022-01-22 15:20:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -458,7 +451,7 @@ build/assignment.o: assignment/assignment.cpp Makefile | build
 
 build/assignment: build/app.o build/context.o build/SDL_FontCache.o build/assignment.o Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-01-09 21:15:01
+#  Last modified 2022-01-22 15:20:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -487,6 +480,7 @@ vpath %.cpp src
 vpath %.cpp examples
 vpath %.cpp assignment
 vpath %.c src
+ 
 
 # 4 `vpath' search paths.
 
@@ -497,6 +491,6 @@ vpath %.c src
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jan 15 09:14:06 2022
+# Finished Make data base on Sat Jan 22 15:33:00 2022
 
  

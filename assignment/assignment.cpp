@@ -6,146 +6,156 @@
 
 #include <context.hpp>
 #include <app.hpp>
-#include "bridge.hpp"
+#include "snake.cpp"
+
 
 using namespace std;
 
 const int width = 640;
 const int height = 480;
-const int font_size = 50;
 
-const int MARGIN = 50; //Margin between windows and game.
-const int FONT_MARGIN_X = 20;
-const int FONT_MARGIN_Y = 40;
 
-class MyApp : public uwe::App
-{
+
+class MyApp: public uwe::App {
 private:
     uwe::Font font15_;
-    uwe::Font text_font;
-    Bridge game_bridge;
-
+    int width_;
+    int height_;
+    Snake snake;
+    bool startGame = false;
 public:
     MyApp(int width, int height, std::string title);
     ~MyApp();
 
-    bool is_computer_turn = false;
     void begin() override;
     void update() override;
     void draw() override;
-    void draw_signs();
-    void clear_screen();
-    void draw_board();
-    void draw_sign(int position, string sign);
+
+    void game_control();
+
     void key_pressed(uwe::Scancode scancode, bool repeat) override;
+
     void mouse_pressed(int x, int y, uwe::Button button) override;
     void mouse_released(int x, int y, uwe::Button button) override;
     void mouse_moved(int x, int y) override;
+    void draw_snake();
 };
 
 MyApp::MyApp(int width, int height, std::string title)
 {
     init(width, height, title);
-    game_bridge = Bridge(width-MARGIN*2, height-MARGIN*2, MARGIN);
+    snake = Snake(width, height);
 }
 
-MyApp::~MyApp()
-{
-}
-
-void MyApp::begin()
-{
-    font15_ = create_font("./assets/fonts/FreeSans.ttf", font_size, uwe::Colour::white());
-    text_font = create_font("./assets/fonts/FreeSans.ttf", 25, uwe::Colour::white());
-}
-
-void MyApp::update(){}
-
-void MyApp::draw_board(){
-    for(int i = 0; i < 4; i++){
-        int x = game_bridge.lines[i].top_right_x;
-        int y = game_bridge.lines[i].top_right_y;
-        int width = game_bridge.lines[i].bottom_left_x;
-        int height = game_bridge.lines[i].bottom_left_y;
-        draw_rect_fill(x,y,width,height);
-    }
+MyApp::~MyApp() {
 
 }
 
-void MyApp::draw_sign(int position, string sign){
-    int *data_xy = game_bridge.get_draw_position(position);
-    draw_font(font15_, sign, data_xy[0] - FONT_MARGIN_X, data_xy[1] - FONT_MARGIN_Y);
+void MyApp::begin() {
+    font15_ = create_font("./assets/fonts/FreeSans.ttf", 30, uwe::Colour::white());
 }
 
-void MyApp::draw_signs(){
-    for (int i = 0; i < 9; i++)
-    {
-        if (game_bridge.get_box_sign(i) == 0)
-        {
-            draw_sign(i, "0");
+void MyApp::update() {
+    snake.updateSnake();
+}
+
+void MyApp::key_pressed(uwe::Scancode scancode, bool repeat) {
+
+    switch (scancode) {
+        case uwe::Scancode::RETURN: {
+            startGame = true;
+            snake = Snake(width, height);
+            break;
         }
-        else if (game_bridge.get_box_sign(i) == 1)
-        {
-            draw_sign(i, "X");
+        case uwe::Scancode::LEFT: {
+            snake.changeHeadDirection(Direction::WEST);
+            break;
+        }
+        case uwe::Scancode::RIGHT: {
+            snake.changeHeadDirection(Direction::EAST);
+            break;
+        }
+        case uwe::Scancode::UP: {
+            snake.changeHeadDirection(Direction::NORTH);
+            break;
+        }
+        case uwe::Scancode::DOWN: {
+            snake.changeHeadDirection(Direction::SOUTH);
+            break;
+        }
+        default: {
+            // nothing see here
         }
     }
 }
 
-void MyApp::key_pressed(uwe::Scancode scancode, bool repeat)
-{
-    switch (scancode)
-    {
-    case uwe::Scancode::RETURN:
-    {
-        game_bridge.reset();
+void MyApp::mouse_pressed(int x, int y, uwe::Button button) {
+
+}
+    
+void MyApp::mouse_released(int x, int y, uwe::Button button) {
+}
+    
+void MyApp::mouse_moved(int x, int y) {
+}
+
+
+void MyApp:: game_control(){
+}
+
+void MyApp:: draw_snake(){
+
+    cout << "Snake size: " << snake.snakeBody.size() << endl;
+    for(int i = 0; i < snake.snakeBody.size(); i++){
+        if(i == 0){
+            set_draw_color(uwe::Colour::red());
+        }
+        else{
+            set_draw_color(uwe::Colour::white());
+        }
+
+        SnakeUnit actual = snake.snakeBody.at(i);
+        SnakeUnit unit = snake.getViewPointPosition(actual);
+        draw_rect_fill(unit.x, unit.y, SNAKE_SIZE, SNAKE_SIZE);
+        cout << " X: " << actual.x << " Y: " << actual.y << endl;
     }
-    default:
-    {
-        // nothing see here
-    }
-    }
-}
 
-void MyApp::mouse_pressed(int x, int y, uwe::Button button)
-{
-    int box_number = game_bridge.get_clicked_box(x, y);
-    bool status = game_bridge.user_clicked_box(box_number, USER_SIGN);
-    printf("Box clicked: %d, Status: %d\n", box_number, status);
-}
-
-
-void MyApp::mouse_released(int x, int y, uwe::Button button)
-{
-}
-
-void MyApp::mouse_moved(int x, int y)
-{
-}
-
-void MyApp::clear_screen(){
-    clear(uwe::Colour::black());
     set_draw_color(uwe::Colour::green());
+    // draw dot  
+    SnakeUnit dot = snake.getViewPointPosition(snake.getDotPosition());
+    draw_rect_fill(dot.x, dot.y, SNAKE_SIZE, SNAKE_SIZE);
+
 }
 
-void MyApp::draw()
-{
-    clear_screen();
-    draw_board();
-    draw_signs();
+void MyApp::draw() {
 
-    std::string score = "You: " + std::to_string(game_bridge.user_score);
-    std::string computer = "Computer: " + std::to_string(game_bridge.computer_score);
-    std::string draw = "Draw: " + std::to_string(game_bridge.draw_score);
-    draw_font(text_font, score, 50, 440);
-    draw_font(text_font, computer, 150, 440);
-    draw_font(text_font, draw, width-150, 440);
-    draw_font(text_font, "Press Enter to Play.", width/3, 1);
+
+    clear(uwe::Colour::black());
+    set_draw_color(uwe::Colour::white());
+
+    if(!startGame){
+        draw_font(font15_, "Press Enter To Play", 100, 150);
+    }
+
+    else if(snake.gameOver){
+        draw_font(font15_, "Game Over", 100, 100);
+        draw_font(font15_, "Press Enter To Play Again", 100, 150);
+        std::string score = "Score: " + std::to_string(snake.score);
+        draw_font(font15_, score, 100, 200);
+    }
+
+    else{
+        draw_snake();
+    }
+
 }
 
-int main(int argc, char *argv[])
-{
-    uwe::App *app = new MyApp{width, height, "Assignment: TIC TAC TOE"};
+int main(int argc, char *argv[]) {
+    uwe::App* app = new MyApp{width, height, "Snake game"};
+
     app->run();
 
     return 0;
 }
+
+
